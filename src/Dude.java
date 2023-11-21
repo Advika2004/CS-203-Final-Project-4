@@ -2,10 +2,13 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public abstract class Dude extends Move implements NextPosition, Transform{
+public abstract class Dude extends Move implements NextPosition{
 
-    public Dude(String id, Point position, double animationPeriod, List<PImage> images){
-        super(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
+//    public Dude(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images){
+//        super(EntityKind.DUDE_FULL, id, position, images, resourceLimit, actionPeriod, animationPeriod);
+//    }
+
+    public Dude(){
     }
 
     @Override

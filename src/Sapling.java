@@ -16,7 +16,7 @@ public class Sapling extends Plants implements Transform {
 
     public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         if (this.health <= 0) {
-            Entity stump = create(STUMP_KEY + "_" + this.id, this.position, imageStore.getImageList(STUMP_KEY));
+            Entity stump = create(EntityKind.STUMP, STUMP_KEY + "_" + this.id, this.position, imageStore.getImageList(STUMP_KEY), 0, 0, 0, 0, 0, 0);
 
             world.removeEntity(scheduler, this);
 
@@ -24,7 +24,7 @@ public class Sapling extends Plants implements Transform {
 
             return true;
         } else if (this.health >= this.healthLimit) {
-            Entity tree = create(TREE_KEY + "_" + this.id, this.position, Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN), Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN), Functions.getIntFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN), imageStore.getImageList(TREE_KEY));
+            Entity tree = create(EntityKind.TREE, TREE_KEY + "_" + this.id, this.position, imageStore.getImageList(TREE_KEY), 0, 0, Functions.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN), Functions.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN), Functions.getIntFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN),0);
 
             world.removeEntity(scheduler, this);
 
@@ -33,6 +33,7 @@ public class Sapling extends Plants implements Transform {
 
             return true;
         }
+        return false;
     }
 
     public Sapling(String id, Point position, List<PImage> images, int health){

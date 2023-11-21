@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class DudeFull extends Dude{
+
+    public DudeFull(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
+        super(id, position, actionPeriod, animationPeriod, resourceLimit,images);
+    }
+
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         if (this.position.adjacent(target.position)) {
             return true;
@@ -29,7 +34,7 @@ public class DudeFull extends Dude{
     }
 
     public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        Entity dude = create(this.id, this.position, this.actionPeriod, this.animationPeriod, this.resourceLimit, this.images);
+        Entity dude = create(EntityKind.DUDE_FULL, this.id, this.position, this.images, 0,0,this.actionPeriod, this.animationPeriod, this.resourceLimit,0);
 
         world.removeEntity(scheduler, this);
 
@@ -38,10 +43,8 @@ public class DudeFull extends Dude{
         return false;
     }
 
-    public DudeFull(String id, Point position, double animationPeriod, List<PImage> images){
-        super(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
+    public static Entity create(String id, Point position, double actionPeriod, double animationPeriod, int resourceLimit, List<PImage> images) {
+       return new DudeFull(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
     }
-    public Entity create(EntityKind kind, String id, Point position, List<PImage> images, int resourceLimit, int resourceCount, double actionPeriod, double animationPeriod, int health, int healthLimit) {
-        return new DudeFull(EntityKind.DUDE_FULL, id, position, images, resourceLimit, 0, actionPeriod, animationPeriod, 0, 0);
-    }
+
 }

@@ -1,8 +1,12 @@
 import processing.core.PImage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class DudeNotFull extends Dude implements Transform{
+
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         if (this.position.adjacent(target.position)) {
             this.resourceCount += 1;
@@ -33,5 +37,13 @@ public class DudeNotFull extends Dude implements Transform{
 
         public DudeNotFull(String id, Point position, double animationPeriod, List<PImage> images) {
             super(id, position, animationPeriod, images);
+    }
+
+    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        Optional<Entity> target = world.findNearest(this.position, new ArrayList<>(Arrays.asList(EntityKind.TREE, EntityKind.SAPLING)));
+
+        if (((Optional<?>) target).isEmpty() || !this.moveTo(world, target.get(), scheduler) || !this.transform(world, scheduler, imageStore)) {
+            scheduler.scheduleEvent(this, Action.createActivityAction(this, world, imageStore), this.actionPeriod);
+        }
     }
 }

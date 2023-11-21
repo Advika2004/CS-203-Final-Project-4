@@ -45,8 +45,7 @@ public class Fairy extends Move implements NextPosition{
 
             if (this.moveTo(world, fairyTarget.get(), scheduler)) {
 
-                Entity sapling = create(SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(SAPLING_KEY), 0);
-
+                Entity sapling = create(SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageStore.getImageList(SAPLING_KEY), 0, 0, 0, 0,0,0,0);
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);
             }
