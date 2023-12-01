@@ -68,15 +68,28 @@ public final class VirtualWorld extends PApplet {
     // Be sure to refactor this method as appropriate
     public void mousePressed() {
         Point pressed = mouseToPoint();
-        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
+//        return new Background(DEFAULT_IMAGE_NAME, imageStore.getImageList(DEFAULT_IMAGE_NAME));
 
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent()) {
-            Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass());
-        }
 
+//        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
+//        Butterfly b = new Butterfly("butterfly", pressed, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
+        //check if the cell that is clicked on is occupied
+        //except for if your purpose is to replace a character
+//        this.world.addEntity(g);
+//        g.scheduleActions(this.scheduler, this.world, this.imageStore);
+//        this.world.addEntity(b);
+//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
     }
+
+
+//        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
+//        Optional<Entity> entityOptional = world.getOccupant(pressed);
+//        if (entityOptional.isPresent()) {
+//            Entity entity = entityOptional.get();
+//            System.out.println(entity.getId() + ": " + entity.getClass());
+
+
+
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         for (Entity entity : world.getEntities()) {
