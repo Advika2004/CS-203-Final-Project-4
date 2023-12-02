@@ -48,8 +48,8 @@ public abstract class Dude extends Movable{
     
 //dude can pass through open spaces and stumps. it cannot pass through fairies or trees
     public Point nextPosition(WorldModel world, Point destPos){
-        Point startPoint =  getPosition();
-        Point endPoint =  destPos;
+        Point startPoint = getPosition();
+        Point endPoint = destPos;
         List<Point> newPositions = new AStarPathingStrategy()
             .computePath(startPoint, endPoint,
                     p -> (world.withinBounds(p)) && (!world.isOccupied(p) || world.isStump(p)),//canPassThrough
@@ -62,5 +62,4 @@ public abstract class Dude extends Movable{
         }
         return newPositions.get(0);
     }
-
 }

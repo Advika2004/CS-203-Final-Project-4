@@ -33,7 +33,7 @@ public final class VirtualWorld extends PApplet {
     private  ImageStore imageStore;
     private  WorldModel world;
     private  WorldView view;
-    private  EventScheduler scheduler;
+    private static EventScheduler scheduler;
 
     public void settings() {
         size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -66,20 +66,50 @@ public final class VirtualWorld extends PApplet {
 
     // Just for debugging and for P5
     // Be sure to refactor this method as appropriate
+
+
+    public static List<Point> Find8SurroundingTiles(Point clickedPoint) {
+        List<Point> surroundingPoints = new ArrayList<>();
+
+        // Add the 8 surrounding points
+        surroundingPoints.add(new Point(clickedPoint.x, clickedPoint.y - 1)); // North
+        surroundingPoints.add(new Point(clickedPoint.x + 1, clickedPoint.y - 1)); // Northeast
+        surroundingPoints.add(new Point(clickedPoint.x + 1, clickedPoint.y)); // East
+        surroundingPoints.add(new Point(clickedPoint.x + 1, clickedPoint.y + 1)); // Southeast
+        surroundingPoints.add(new Point(clickedPoint.x, clickedPoint.y + 1)); // South
+        surroundingPoints.add(new Point(clickedPoint.x - 1, clickedPoint.y + 1)); // Southwest
+        surroundingPoints.add(new Point(clickedPoint.x - 1, clickedPoint.y)); // West
+        surroundingPoints.add(new Point(clickedPoint.x - 1, clickedPoint.y - 1)); // Northwest
+
+        return surroundingPoints;
+    }
+
     public void mousePressed() {
         Point pressed = mouseToPoint();
-//        return new Background(DEFAULT_IMAGE_NAME, imageStore.getImageList(DEFAULT_IMAGE_NAME));
+        Background newBackground = new Background("garden", this.imageStore.getImageList("garden"));
+        for (Point point : Find8SurroundingTiles(pressed)) {
+            world.setBackgroundCell(point, newBackground);
+        }
+        world.setBackgroundCell(pressed, newBackground);
+    }
+
+    static void plantFlower(WorldModel world, Point position, ImageStore imageStore) {
+        Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125);
+        world.addEntity(f);
+        f.scheduleActions(scheduler, world, imageStore);
+    }
 
 
 //        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
-//        Butterfly b = new Butterfly("butterfly", pressed, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
-        //check if the cell that is clicked on is occupied
-        //except for if your purpose is to replace a character
 //        this.world.addEntity(g);
 //        g.scheduleActions(this.scheduler, this.world, this.imageStore);
+
+//        Butterfly b = new Butterfly("butterfly", pressed, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
 //        this.world.addEntity(b);
 //        b.scheduleActions(this.scheduler, this.world, this.imageStore);
-    }
+
+        //check if the cell that is clicked on is occupied
+        //except for if your purpose is to replace a character
 
 
 //        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);

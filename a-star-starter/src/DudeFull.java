@@ -10,6 +10,7 @@ public class DudeFull extends Dude {
                 double animationPeriod, int resourceLimit) {
         super(id, position, images, actionPeriod, animationPeriod, resourceLimit);
     }
+
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         if (this.getPosition().adjacent(target.getPosition())) {
             return true;
