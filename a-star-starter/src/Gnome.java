@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Gnome extends Dude {
 
-    public Gnome(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod, int resourceLimit, int i) {
+    public Gnome(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod, int resourceLimit) {
         super(id, position, images, actionPeriod, animationPeriod, resourceLimit);
     }
 
@@ -17,6 +17,16 @@ public class Gnome extends Dude {
         }
     }
 
+    @Override
+    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        return false;
+    }
+
+
+//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        return false;
+//    }
+
     public boolean isNearGarden(WorldModel world) {
         for (Point point : VirtualWorld.Find8SurroundingTiles(this.getPosition())) {
             if (world.getBackgroundCell(point).equals("garden")) {
@@ -26,18 +36,22 @@ public class Gnome extends Dude {
         return false;
     }
 
-    @Override
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (this.isNearGarden(world)) {
-            Gnome gnome = new Gnome(this.getId(), this.getPosition(), this.getImages(),
-                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit(), 0);
-            world.removeEntity(scheduler, this);
-            world.addEntity(gnome);
-            gnome.scheduleActions(scheduler, world, imageStore);
-            return true;
-        }
-            return false;
-    }
+//    @Override
+//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        // Check if the instance is either DudeNotFull or DudeFull and near a garden
+//        if ((this instanceof DudeNotFull || this instanceof DudeFull) && this.isNearGarden(world)) {
+//            Gnome gnome = new Gnome(this.getId(), this.getPosition(), this.getImages(),
+//                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
+//
+//            world.removeEntity(scheduler, this); // Remove current entity (DudeNotFull/DudeFull)
+//            world.addEntity(gnome); // Add new Gnome entity
+//            gnome.scheduleActions(scheduler, world, imageStore); // Schedule Gnome's actions
+//
+//            return true;
+//        }
+//        return false;
+//    }
+
 
     private int flowersPlanted = 0;
 

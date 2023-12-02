@@ -174,6 +174,7 @@ public final class WorldModel {
 
     public void setBackgroundCell(Point pos, Background background) {
         this.background[pos.y][pos.x] = background;
+//        background.setId(background.getId());
     }
 
     public Background getBackgroundCell(Point pos) {

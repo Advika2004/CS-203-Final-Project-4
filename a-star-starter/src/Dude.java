@@ -43,7 +43,7 @@ public abstract class Dude extends Movable{
     }
 
 
-    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+//    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
     
     
 //dude can pass through open spaces and stumps. it cannot pass through fairies or trees
@@ -62,4 +62,17 @@ public abstract class Dude extends Movable{
         }
         return newPositions.get(0);
     }
+
+
+    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+
+    public boolean isNearGarden(WorldModel world, Point point) {
+            if(world.getBackgroundCell(point).equals("garden")) {
+                return true;
+            }
+        return false;
+    }
+
+
+
 }
