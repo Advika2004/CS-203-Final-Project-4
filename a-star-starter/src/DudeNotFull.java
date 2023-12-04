@@ -48,23 +48,33 @@ public class DudeNotFull extends Dude {
 
     @Override
     public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        System.out.println("chekc DNF");
         Movable newEntity = null;
-
         if (this.isNearGarden(world, this.getPosition())) {
-            System.out.println("near garden DNF");
+            System.out.println("RAHHHHHHH RAHHHHHHHHHHH");
 
             // Transform into Gnome if near a garden
-            newEntity = new Gnome(this.getId(), this.getPosition(), this.getImages(),
-                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
-            world.removeEntity(scheduler, this); // Remove current entity (DudeNotFull/DudeFull)
+//            Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125, );
+//        this.world.addEntity(g);
+//        g.scheduleActions(this.scheduler, this.world, this.imageStore);
+            Gnome anewEntity = new Gnome("gnome", this.getPosition(), imageStore.getImageList("gnome"), 0.5, 0.125, 0);
+//        this.world.addEntity(g);
+//        g.scheduleActions(this.scheduler, this.world, this.imageStore);
 
-        } else if (this.resourceCount >= this.getResourceLimit()) {
+            scheduler.unscheduleAllEvents(this);
+            world.removeEntity(scheduler, this); // Remove current entity (DudeNotFull/DudeFull)
+            world.addEntity(anewEntity);
+            anewEntity.scheduleActions(scheduler, world, imageStore);
+
+        } else if (this.resourceCount >= this.getResourceLimit() && this.isGrass(world, this.getPosition())) {
             System.out.println("making New DF");
 
             // Transform into DudeFull if resource count is at or above the limit
             newEntity = new DudeFull(this.getId(), this.getPosition(), this.getImages(),
                     this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
+            scheduler.unscheduleAllEvents(this);
+            world.removeEntity(scheduler, this);
+            world.addEntity(newEntity);
+            newEntity.scheduleActions(scheduler, world, imageStore);
         }
 
         if (newEntity != null) {
@@ -77,10 +87,31 @@ public class DudeNotFull extends Dude {
 
             return true;
         }
-
         return false;
     }
 
+
+//    @Override
+//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        if (this.resourceCount >= this.getResourceLimit()) {
+//            System.out.println("making New DF");
+//
+//            // Transform into DudeFull if resource count is at or above the limit
+//            Movable newEntity = new DudeFull(this.getId(), this.getPosition(), this.getImages(),
+//                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
+//
+//            // Common transformation steps
+//            world.removeEntity(scheduler, this);
+//            scheduler.unscheduleAllEvents(this);
+//
+//            world.addEntity(newEntity);
+//            newEntity.scheduleActions(scheduler, world, imageStore);
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
 
 //
