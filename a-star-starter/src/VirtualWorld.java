@@ -86,45 +86,60 @@ public final class VirtualWorld extends PApplet {
 
     public void mousePressed() {
         Point pressed = mouseToPoint();
-        spawnButterflies(10);
+        spawnButterflies(pressed);
+        Background oldBackground = world.getBackgroundCell(pressed);
+        System.out.println("current background" + oldBackground.getId());
         Background newBackground = new Background("garden", this.imageStore.getImageList("garden"));
+        System.out.println("id:" + newBackground.getId());
+
         for (Point point : Find8SurroundingTiles(pressed)) {
             world.setBackgroundCell(point, newBackground);
+            Background currentCell = world.getBackgroundCell(point);
+            currentCell.setId((newBackground.getId()));
+            System.out.println("current background cell ID " + currentCell.getId());
         }
         world.setBackgroundCell(pressed, newBackground);
     }
+    public List<Point> getRandomPointsNearClicked(Point pressed, int radius, int count) {
+        List<Point> randomPoints = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            // Generate random points within a certain radius around the clicked point
+            int x = pressed.x + (int) (Math.random() * 2 * radius - radius);
+            int y = pressed.y + (int) (Math.random() * 2 * radius - radius);
 
-//    public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
-//        Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
-//        this.world.addEntity(b);
-//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
-//    }
+            // Ensure that the point is within the bounds of the world
+            x = Math.max(0, Math.min(x, width - 1));
+            y = Math.max(0, Math.min(y, height - 1));
 
-    public Point getRandomPointInWorld() {
-        int x = (int) random(width);   // Assuming 'width' is the width of your virtual world
-        int y = (int) random(height);  // Assuming 'height' is the height of your virtual world
-        return new Point(x, y);
+            randomPoints.add(new Point(x, y));
+        }
+        return randomPoints;
     }
 
-        public void spawnButterflies(int count) {
-        for (int i = 0; i < count; i++) {
-            Point randomPoint = getRandomPointInWorld();  // Get a random point in the virtual world
+    public void spawnButterflies(Point pressed) {
+        int radius = 10; // You can adjust this value
+        int count = 3; // Number of butterflies to spawn
+
+        // Get a list of random points near the clicked point
+        List<Point> randomPoints = getRandomPointsNearClicked(pressed, radius, count);
+
+        // Iterate through the list and spawn a butterfly at each point
+        for (Point randomPoint : randomPoints) {
             spawnButterfly(world, randomPoint, imageStore);
         }
     }
-
     public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
         Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
         this.world.addEntity(b);
         b.scheduleActions(this.scheduler, this.world, this.imageStore);
     }
-
-    //whenevr click spawn butterflies
-
+// CHANGE HEALTH AND HEALTH LIMIT
     static void plantFlower(WorldModel world, Point position, ImageStore imageStore) {
-        Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125);
-        world.addEntity(f);
-        f.scheduleActions(scheduler, world, imageStore);
+        if (!world.isOccupied(position)) {
+            Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125, 0, 1);
+            world.addEntity(f);
+            f.scheduleActions(scheduler, world, imageStore);
+        }
     }
 
 //        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
@@ -144,8 +159,6 @@ public final class VirtualWorld extends PApplet {
 //        if (entityOptional.isPresent()) {
 //            Entity entity = entityOptional.get();
 //            System.out.println(entity.getId() + ": " + entity.getClass());
-
-
 
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
@@ -236,23 +249,3 @@ public final class VirtualWorld extends PApplet {
         return virtualWorld.world.log();
     }
 }
-
-
-
-
-
-
-//    public void spawnButterflies(int count) {
-//        for (int i = 0; i < count; i++) {
-//            Point randomPoint = getRandomPointInWorld();  // Get a random point in the virtual world
-//            spawnButterfly(world, randomPoint, imageStore);
-//        }
-//    }
-//
-
-//
-//    public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
-//        Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
-//        this.world.addEntity(b);
-//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
-//    }

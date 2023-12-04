@@ -43,7 +43,7 @@ public abstract class Dude extends Movable{
     }
 
 
-    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+//    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
     
     
 //dude can pass through open spaces and stumps. it cannot pass through fairies or trees
@@ -61,5 +61,57 @@ public abstract class Dude extends Movable{
             return startPoint;
         }
         return newPositions.get(0);
+    }
+
+
+    public abstract boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+
+//    public boolean isNearGarden(WorldModel world, Point point) {
+//        Background background = world.getBackgroundCell(point);
+//        if (background != null && background.getId().equals("garden")) {
+//            System.out.println("Garden found near point: " + point);
+//            return true;
+//        }
+//        return false;
+//    }
+
+//    public boolean isNearGarden(WorldModel world, Point point) {
+//        List<Point> surroundingPoints = VirtualWorld.Find8SurroundingTiles(point);
+//
+//        for (Point surroundingPoint : surroundingPoints) {
+//            // Ensure that the surrounding point is within the world bounds
+//            if (world.withinBounds(surroundingPoint)) {
+//                Background background = world.getBackgroundCell(surroundingPoint);
+//                System.out.println("WHAT IS THE CURRENT BACKGROUND " + background.getId());
+//                if (background.getId().equals("garden")) {
+//                    System.out.println("Garden found near point: " + surroundingPoint);
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
+
+    public boolean isNearGarden(WorldModel world, Point point) {
+            if (world.withinBounds(point)) {
+                Background background = world.getBackgroundCell(point);
+                System.out.println("WHAT IS THE CURRENT BACKGROUND " + background.getId());
+                if (background.getId().equals("garden")) {
+                    System.out.println("Garden found at point: " + point);
+                    return true;
+                }
+            }
+        return false;
+    }
+
+    public boolean isGrass(WorldModel world, Point point) {
+        if (world.withinBounds(point)) {
+            Background background = world.getBackgroundCell(point);
+            System.out.println("WHAT IS THE CURRENT BACKGROUND " + background.getId());
+            if (background.getId().equals("grass")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
