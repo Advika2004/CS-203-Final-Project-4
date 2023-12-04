@@ -27,19 +27,20 @@ public class Gnome extends Dude {
 //        return false;
 //    }
 
-    public boolean isNearGarden(WorldModel world) {
-        for (Point point : VirtualWorld.Find8SurroundingTiles(this.getPosition())) {
-            if (world.getBackgroundCell(point).equals("garden")) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean isNearGarden(WorldModel world) {
+//        for (Point point : VirtualWorld.Find8SurroundingTiles(this.getPosition())) {
+//            if (world.getBackgroundCell(point).equals("garden")) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 //    @Override
 //    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
 //        // Check if the instance is either DudeNotFull or DudeFull and near a garden
-//        if ((this instanceof DudeNotFull || this instanceof DudeFull) && this.isNearGarden(world)) {
+//        if ((this.isNearGarden(world, this.getPosition()))){
+//            System.out.println("it has checked");
 //            Gnome gnome = new Gnome(this.getId(), this.getPosition(), this.getImages(),
 //                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
 //
@@ -58,7 +59,7 @@ public class Gnome extends Dude {
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         if (flowersPlanted < 5) {
-            Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
+            Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class)));
             if (target.isPresent() && moveTo(world, target.get(), scheduler)){
                 Point nextToTree = findEmptyAdjacentPosition(world, target.get().getPosition());
                 if(nextToTree != null){
@@ -74,9 +75,9 @@ public class Gnome extends Dude {
     }
 
     private Point findEmptyAdjacentPosition(WorldModel world, Point treePosition) {
-        Point leftPosition = new Point(treePosition.x - 1, treePosition.y);
-        if (!world.isOccupied(leftPosition)) {
-            return leftPosition;
+        Point rightPosition = new Point(treePosition.x + 1, treePosition.y);
+        if (!world.isOccupied(rightPosition)) {
+            return rightPosition;
         }
         return null;
     }

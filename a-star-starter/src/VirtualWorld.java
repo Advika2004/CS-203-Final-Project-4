@@ -135,11 +135,12 @@ public final class VirtualWorld extends PApplet {
     }
 // CHANGE HEALTH AND HEALTH LIMIT
     static void plantFlower(WorldModel world, Point position, ImageStore imageStore) {
-        Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125, 0, 1);
-        world.addEntity(f);
-        f.scheduleActions(scheduler, world, imageStore);
+        if (!world.isOccupied(position)) {
+            Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125, 0, 1);
+            world.addEntity(f);
+            f.scheduleActions(scheduler, world, imageStore);
+        }
     }
-
 
 //        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
 //        this.world.addEntity(g);
@@ -158,8 +159,6 @@ public final class VirtualWorld extends PApplet {
 //        if (entityOptional.isPresent()) {
 //            Entity entity = entityOptional.get();
 //            System.out.println(entity.getId() + ": " + entity.getClass());
-
-
 
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {

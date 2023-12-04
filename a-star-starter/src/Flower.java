@@ -23,23 +23,24 @@ public class Flower extends Plant{
         }
     }
 
-    @Override
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        if (!super.transform(world, scheduler, imageStore) && this.getHealth() >= this.healthLimit) {
-            Plant tree = new Tree(Tree.TREE_KEY + "_" + this.getId(), this.getPosition(),
-                    imageStore.getImageList(Tree.TREE_KEY), Functions.getNumFromRange(Tree.TREE_ACTION_MAX, Tree.TREE_ACTION_MIN),
-                    Functions.getNumFromRange(Tree.TREE_ANIMATION_MAX, Tree.TREE_ANIMATION_MIN),
-                    Functions.getIntFromRange(Tree.TREE_HEALTH_MAX, Tree.TREE_HEALTH_MIN));
 
-            world.removeEntity(scheduler, this);
-
-            world.addEntity(tree);
-            tree.scheduleActions(scheduler, world, imageStore);
-
-            return true;
-        }
-
-        return false;
-    }
+//    @Override
+//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        if (!super.transform(world, scheduler, imageStore) && this.getHealth() >= this.healthLimit) {
+//            Plant tree = new Tree(Tree.TREE_KEY + "_" + this.getId(), this.getPosition(),
+//                    imageStore.getImageList(Tree.TREE_KEY), Functions.getNumFromRange(Tree.TREE_ACTION_MAX, Tree.TREE_ACTION_MIN),
+//                    Functions.getNumFromRange(Tree.TREE_ANIMATION_MAX, Tree.TREE_ANIMATION_MIN),
+//                    Functions.getIntFromRange(Tree.TREE_HEALTH_MAX, Tree.TREE_HEALTH_MIN));
+//
+//            world.removeEntity(scheduler, this);
+//
+//            world.addEntity(tree);
+//            tree.scheduleActions(scheduler, world, imageStore);
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
 }

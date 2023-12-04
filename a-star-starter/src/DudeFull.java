@@ -74,28 +74,42 @@ public class DudeFull extends Dude {
 //        }
     @Override
     public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-        System.out.println("chekc DF");
+        System.out.println("check DF");
         Movable newEntity;
 
         if (this.isNearGarden(world, this.getPosition())) {
             System.out.println("near garden DF");
 
             // Transform into Gnome if near a garden
-            newEntity = new Gnome(this.getId(), this.getPosition(), this.getImages(),
-                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
+            Gnome anewEntity = new Gnome("gnome", this.getPosition(), imageStore.getImageList("gnome"), 0.5, 0.125, 0);
+            world.removeEntity(scheduler, this);
+            world.addEntity(anewEntity);
+            anewEntity.scheduleActions(scheduler, world, imageStore);
+
         } else {
             System.out.println("making New DNF");
             newEntity = new DudeNotFull(this.getId(), this.getPosition(), this.getImages(),
                     this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit(), 0);
+            world.removeEntity(scheduler, this);
+            world.addEntity(newEntity);
+            newEntity.scheduleActions(scheduler, world, imageStore);
         }
 
         // Remove the current entity and replace it with the new entity
-        world.removeEntity(scheduler, this);
-        world.addEntity(newEntity);
-        newEntity.scheduleActions(scheduler, world, imageStore);
 
         return true;
     }
+
+//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+//        Movable dude = new DudeNotFull(this.getId(), this.getPosition(), this.getImages(),
+//                this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit(), 0);
+//        world.removeEntity(scheduler, this);
+//
+//        world.addEntity(dude);
+//        dude.scheduleActions(scheduler, world, imageStore);
+//
+//        return true;
+//    }
 
 
 
