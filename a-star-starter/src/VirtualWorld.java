@@ -86,6 +86,7 @@ public final class VirtualWorld extends PApplet {
 
     public void mousePressed() {
         Point pressed = mouseToPoint();
+        spawnButterflies(10);
         Background newBackground = new Background("garden", this.imageStore.getImageList("garden"));
         for (Point point : Find8SurroundingTiles(pressed)) {
             world.setBackgroundCell(point, newBackground);
@@ -93,12 +94,38 @@ public final class VirtualWorld extends PApplet {
         world.setBackgroundCell(pressed, newBackground);
     }
 
+//    public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
+//        Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
+//        this.world.addEntity(b);
+//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
+//    }
+
+    public Point getRandomPointInWorld() {
+        int x = (int) random(width);   // Assuming 'width' is the width of your virtual world
+        int y = (int) random(height);  // Assuming 'height' is the height of your virtual world
+        return new Point(x, y);
+    }
+
+        public void spawnButterflies(int count) {
+        for (int i = 0; i < count; i++) {
+            Point randomPoint = getRandomPointInWorld();  // Get a random point in the virtual world
+            spawnButterfly(world, randomPoint, imageStore);
+        }
+    }
+
+    public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
+        Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
+        this.world.addEntity(b);
+        b.scheduleActions(this.scheduler, this.world, this.imageStore);
+    }
+
+    //whenevr click spawn butterflies
+
     static void plantFlower(WorldModel world, Point position, ImageStore imageStore) {
         Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125);
         world.addEntity(f);
         f.scheduleActions(scheduler, world, imageStore);
     }
-
 
 //        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
 //        this.world.addEntity(g);
@@ -209,3 +236,23 @@ public final class VirtualWorld extends PApplet {
         return virtualWorld.world.log();
     }
 }
+
+
+
+
+
+
+//    public void spawnButterflies(int count) {
+//        for (int i = 0; i < count; i++) {
+//            Point randomPoint = getRandomPointInWorld();  // Get a random point in the virtual world
+//            spawnButterfly(world, randomPoint, imageStore);
+//        }
+//    }
+//
+
+//
+//    public void spawnButterfly(WorldModel world, Point position, ImageStore imageStore) {
+//        Butterfly b = new Butterfly("butterfly", position, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
+//        this.world.addEntity(b);
+//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
+//    }

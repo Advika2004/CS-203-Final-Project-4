@@ -31,7 +31,7 @@ public abstract class ActiveAnimatedEntity extends Entity implements Active, Ani
     }
 
     @Override
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
+    public static void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore) {
         Animatable.super.scheduleActions(scheduler, world, imageStore);
         Active.super.scheduleActions(scheduler, world, imageStore);
     }
