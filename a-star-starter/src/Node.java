@@ -1,15 +1,15 @@
 public class Node {
-    private Point position;          // Node's position in the grid
-    private double distFromStart;    //  distance from the start node G
-    private Node previous;           // Previous node in the path
-    private double distanceToGoal; // Estimated distance H
+    private Point position;
+    private double distFromStart;
+    private Node previous;
+    private double distanceToGoal;
 
 
     public Node(Point position) {
         this.position = position;
-        this.distFromStart = Double.MAX_VALUE; // Initially set to maximum value
+        this.distFromStart = Double.MAX_VALUE;
         this.previous = null;
-        this.distanceToGoal = Double.MAX_VALUE; // Initially set to maximum value
+        this.distanceToGoal = Double.MAX_VALUE;
     }
 
     // Getters and Setters
@@ -50,7 +50,6 @@ public class Node {
         return Math.abs(goal.x - this.position.x) + Math.abs(goal.y - this.position.y);
     }
 
-    // Override equals and hashCode to allow proper comparison and usage in data structures like HashSet or HashMap
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

@@ -12,7 +12,6 @@ public final class Functions {
         return min + rand.nextDouble() * (max - min);
     }
 
-
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
     }

@@ -362,4 +362,12 @@ public final class WorldModel {
         }
         return false;
     }
+
+    public boolean isButterfly(Point pos) {
+        if (withinBounds(pos)){
+            Entity object = getOccupancyCell(pos);
+            return object instanceof Stump;
+        }
+        return false;
+    }
 }

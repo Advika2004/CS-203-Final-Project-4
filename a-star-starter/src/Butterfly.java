@@ -42,27 +42,6 @@ public class Butterfly extends Movable {
         return newPositions.get(0);
     }
 
-//    @Override
-//    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-//        Optional<Entity> butterflyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Sapling.class)));
-//
-//        if (butterflyTarget.isPresent()) {
-//            Point tgtPos = butterflyTarget.get().getPosition();
-//
-//            if (this.moveTo(world, butterflyTarget.get(), scheduler)) {
-//
-//                Sapling sapling = new Sapling(Sapling.SAPLING_KEY + "_" + butterflyTarget.get().getId(), tgtPos,
-//                        imageStore.getImageList(Sapling.SAPLING_KEY), Sapling.SAPLING_ACTION_ANIMATION_PERIOD,
-//                        Sapling.SAPLING_ACTION_ANIMATION_PERIOD, 0, Sapling.SAPLING_HEALTH_LIMIT);
-//
-//                sapling.scheduleActions(scheduler, world, imageStore);
-//            }
-//        }
-//
-//        scheduler.scheduleEvent(this, new Activity(this, world, imageStore), this.getActionPeriod());
-//    }
-//}
-
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> butterflyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Flower.class)));
@@ -75,6 +54,7 @@ public class Butterfly extends Movable {
                 Flower flower = new Flower(Flower.FLOWER_KEY + "_" + butterflyTarget.get().getId(), tgtPos,
                         imageStore.getImageList(Flower.FLOWER_KEY), Flower.FLOWER_ACTION_ANIMATION_PERIOD,
                         Flower.FLOWER_ACTION_ANIMATION_PERIOD, 0, Flower.FLOWER_HEALTH_LIMIT);
+
 
                 flower.scheduleActions(scheduler, world, imageStore);
             }

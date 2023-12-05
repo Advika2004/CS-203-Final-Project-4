@@ -22,43 +22,11 @@ public class Gnome extends Dude {
         return false;
     }
 
-
-//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-//        return false;
-//    }
-
-//    public boolean isNearGarden(WorldModel world) {
-//        for (Point point : VirtualWorld.Find8SurroundingTiles(this.getPosition())) {
-//            if (world.getBackgroundCell(point).equals("garden")) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
-//        // Check if the instance is either DudeNotFull or DudeFull and near a garden
-//        if ((this.isNearGarden(world, this.getPosition()))){
-//            System.out.println("it has checked");
-//            Gnome gnome = new Gnome(this.getId(), this.getPosition(), this.getImages(),
-//                    this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
-//
-//            world.removeEntity(scheduler, this); // Remove current entity (DudeNotFull/DudeFull)
-//            world.addEntity(gnome); // Add new Gnome entity
-//            gnome.scheduleActions(scheduler, world, imageStore); // Schedule Gnome's actions
-//
-//            return true;
-//        }
-//        return false;
-//    }
-
-
     private int flowersPlanted = 0;
 
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        if (flowersPlanted < 5) {
+        if (flowersPlanted < 70) {
             Optional<Entity> target = world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class)));
             if (target.isPresent() && moveTo(world, target.get(), scheduler)){
                 Point nextToTree = findEmptyAdjacentPosition(world, target.get().getPosition());
@@ -68,16 +36,16 @@ public class Gnome extends Dude {
                 }
             }
 
-            if (flowersPlanted < 5){
+            if (flowersPlanted < 70){
                     scheduler.scheduleEvent(this, new Activity(this, world, imageStore), this.getActionPeriod());
                 }
         }
     }
 
     private Point findEmptyAdjacentPosition(WorldModel world, Point treePosition) {
-        Point rightPosition = new Point(treePosition.x + 1, treePosition.y);
-        if (!world.isOccupied(rightPosition)) {
-            return rightPosition;
+        Point upPosition = new Point(treePosition.x, treePosition.y + 1);
+        if (!world.isOccupied(upPosition)) {
+            return upPosition;
         }
         return null;
     }

@@ -39,9 +39,6 @@ public final class VirtualWorld extends PApplet {
         size(VIEW_WIDTH, VIEW_HEIGHT);
     }
 
-    /*
-       Processing entry point for "sketch" setup.
-    */
     public void setup() {
         parseCommandLine(ARGS);
         loadImages(IMAGE_LIST_FILE_NAME);
@@ -64,9 +61,6 @@ public final class VirtualWorld extends PApplet {
         scheduler.updateOnTime(frameTime);
     }
 
-    // Just for debugging and for P5
-    // Be sure to refactor this method as appropriate
-
 
     public static List<Point> Find8SurroundingTiles(Point clickedPoint) {
         List<Point> surroundingPoints = new ArrayList<>();
@@ -81,6 +75,7 @@ public final class VirtualWorld extends PApplet {
         surroundingPoints.add(new Point(clickedPoint.x - 1, clickedPoint.y)); // West
         surroundingPoints.add(new Point(clickedPoint.x - 1, clickedPoint.y - 1)); // Northwest
 
+
         return surroundingPoints;
     }
 
@@ -88,15 +83,12 @@ public final class VirtualWorld extends PApplet {
         Point pressed = mouseToPoint();
         spawnButterflies(pressed);
         Background oldBackground = world.getBackgroundCell(pressed);
-        System.out.println("current background" + oldBackground.getId());
         Background newBackground = new Background("garden", this.imageStore.getImageList("garden"));
-        System.out.println("id:" + newBackground.getId());
 
         for (Point point : Find8SurroundingTiles(pressed)) {
             world.setBackgroundCell(point, newBackground);
             Background currentCell = world.getBackgroundCell(point);
             currentCell.setId((newBackground.getId()));
-            System.out.println("current background cell ID " + currentCell.getId());
         }
         world.setBackgroundCell(pressed, newBackground);
     }
@@ -118,7 +110,7 @@ public final class VirtualWorld extends PApplet {
 
     public void spawnButterflies(Point pressed) {
         int radius = 10; // You can adjust this value
-        int count = 3; // Number of butterflies to spawn
+        int count = 1; // Number of butterflies to spawn
 
         // Get a list of random points near the clicked point
         List<Point> randomPoints = getRandomPointsNearClicked(pressed, radius, count);
@@ -136,29 +128,11 @@ public final class VirtualWorld extends PApplet {
 // CHANGE HEALTH AND HEALTH LIMIT
     static void plantFlower(WorldModel world, Point position, ImageStore imageStore) {
         if (!world.isOccupied(position)) {
-            Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.5, 0.125, 0, 1);
+            Flower f = new Flower("flower", position, imageStore.getImageList("flower"), 0.125, 0.125, 0, 1);
             world.addEntity(f);
             f.scheduleActions(scheduler, world, imageStore);
         }
     }
-
-//        Gnome g = new Gnome("gnome", pressed, this.imageStore.getImageList("gnome"), 0.5, 0.125);
-//        this.world.addEntity(g);
-//        g.scheduleActions(this.scheduler, this.world, this.imageStore);
-
-//        Butterfly b = new Butterfly("butterfly", pressed, this.imageStore.getImageList("butterfly"), 0.5, 0.125);
-//        this.world.addEntity(b);
-//        b.scheduleActions(this.scheduler, this.world, this.imageStore);
-
-        //check if the cell that is clicked on is occupied
-        //except for if your purpose is to replace a character
-
-
-//        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
-//        Optional<Entity> entityOptional = world.getOccupant(pressed);
-//        if (entityOptional.isPresent()) {
-//            Entity entity = entityOptional.get();
-//            System.out.println(entity.getId() + ": " + entity.getClass());
 
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
