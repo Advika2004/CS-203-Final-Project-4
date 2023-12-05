@@ -10,6 +10,7 @@ New Classes Added:
  1. Gnome - subclass that extended Dude just like dudeFull and dudeNotFull
  2. Butterfly - completely new entity that extends Movable.
  3. Flower - subclass that extended Plant similar to sapling.
+  - Also had to change nextPosition for Dude so that they could pass through butterflies.
 
 Choices:
 1. Advika - responsible for transforming the Dude into a gnome and planting flowers

@@ -25,7 +25,6 @@ public final class VirtualWorld extends PApplet {
     public static final double FAST_SCALE = 0.5;
     public static final double FASTER_SCALE = 0.25;
     public static final double FASTEST_SCALE = 0.10;
-
     public String loadFile = "world.sav";
     public long startTimeMillis = 0;
     public double timeScale = 1.0;

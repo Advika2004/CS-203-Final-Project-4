@@ -354,7 +354,6 @@ public final class WorldModel {
         }
         return list;
     }
-
     public boolean isStump(Point pos){
         if (withinBounds(pos)){
             Entity object = getOccupancyCell(pos);
@@ -362,7 +361,6 @@ public final class WorldModel {
         }
         return false;
     }
-
     public boolean isButterfly(Point pos) {
         if (withinBounds(pos)){
             Entity object = getOccupancyCell(pos);

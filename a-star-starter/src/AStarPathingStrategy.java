@@ -21,9 +21,6 @@ class AStarPathingStrategy implements PathingStrategy {
         PriorityQueue<Node> openList = new PriorityQueue<>((node1, node2) -> Double.compare(node1.getFCost(), node2.getFCost())); //open list with a comparator
         Set<Point> closedList = new HashSet<>();
         Map<Point, Node> allNodes = new HashMap<>();
-
-
-
         Node startNode = new Node(start);
         Node current = null;
 
@@ -79,7 +76,6 @@ class AStarPathingStrategy implements PathingStrategy {
             return buildPath(current);
         }
     }
-
 
     private List<Point> buildPath(Node target) {
         LinkedList<Point> path = new LinkedList<>();
