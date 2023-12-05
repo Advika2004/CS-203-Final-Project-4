@@ -1,0 +1,22 @@
+Advika and Nika - Project 4 - GardenLand
+
+1. To trigger the event, click on the screen on any spot, preferably near the trees.
+2. Once clicked, a magical tulip garden will appear.
+3. Once the dudeNotFull walks into the garden, the dude will transform into a garden gnome.
+3. The garden gnome will now have the job of planting sunflowers near the trees, so he will go to the nearest tree and plant a flower in front of it.
+4. Once the garden appears, new butterfly entities will also spawn. They will fly around and eat the flowers that the gnome is planting.
+
+New Classes Added:
+ 1. Gnome - subclass that extended Dude just like dudeFull and dudeNotFull
+ 2. Butterfly - completely new entity that extends Movable.
+ 3. Flower - subclass that extended Plant similar to sapling.
+
+Choices:
+1. Advika - responsible for transforming the Dude into a gnome and planting flowers
+2. Nika - responsible for creating butterflies and making them eat the flowers.
+
+Design Decisions:
+1. We couldn't decide where to put the transform methods because at first we wanted both the dudeFull and dudeNotFull to transform.
+We thought of writing one common method and putting it within Dude so that it would be inherited by everyone.
+2. We decided to keep the transform method abstract in the Dude class, so that DudeFull, DudeNotFull, and Gnome would implement a version of it.
+We realized we only wanted the DudeNotFull to do the transformation, so we couldn't move the method up.
