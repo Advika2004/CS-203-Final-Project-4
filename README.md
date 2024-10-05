@@ -1,123 +1,66 @@
-# Project 2 — Cohesion
+# Project 4 — Final Project
 
-In this project, you are given a large object-oriented codebase and are asked to refactor it to improve its cohesion.
+- For this assignment you will modify the virtual world to support a “world-changing” event. This event is to be triggered by a mouse press and must have a localized effect. The event must be visualized by changing the affected background tiles and by modifying the affected entities (more below). In addition, the world event must create a new type of entity.
 
-Take some time to study this codebase. In doing so, you may have noticed that some classes support functionality (methods) that are not appropriate for all instances of the class. Moreover, these classes support data attributes that are not used by all instances of the class.
+- In the example below, clicking the mouse causes a randomly shaped mountain range to appear with a dragon hiding in the mountains. The dragon flies off to eat any miners, blobs, or blacksmiths. (Note: To complete all the requirements of the assignment, the example would also need to have the event trigger a change to some or all members of an existing entity type.)
 
-This is an issue of _cohesion_. Specifically, these classes exhibit low (poor) cohesion by representing multiple concepts, combining all attributes and methods used by each concept in a single class.
 
-This project asks that you improve the code base by splitting each class exhibiting low cohesion into multiple, highly cohesive classes. Doing so in Java will require identifying common methods for each subset of these new classes and then introducing a new parent type for each logical grouping of these methods (more on this below).
-Objectives
+Objectives:
+- Add new functionality to existing code base demonstrating an understanding of the existing design and functionality
+- Be able to evaluate the current design based on the experience of adding to the code
+- You may work with one partner on this project. Choose the code base of one of the partners to add to, and then both work on the project together (you will need to make a separate, private github repo if you want to collaborate. Then you can either have one of you copy and paste the code into the original github repo you’ve been using all quarter to submit, or add me as a collaborator to the new private repository so that I can clone it. Both team members must contribute code to the project.
 
-- Deepen your understanding of the specific functionality of the large project design
-- To be able to read and understand java code and be able to evaluate the cohesion of the class structure in existing code
-- To be able to implement abstract classes and/or interfaces and use them to improve cohesion in a project design
-- Specifically, for this assignment, in the actual java code, introduce appropriate classes in order to remove the need for enumerated types and for other classes that contain methods that do not support the primary role of instances of that class
-- To be able to make design changes to a large code base and have the code still work
+Your Goal: World Changing Event
+- Now that you have an excellent code base, you can edit it and grow the functionality by adding the following events.
 
-## Given code
+World Changing Event: Visualization
+- Decide on a world-changing event (e.g., a river spawns, a volcano erupts, or a rainbow is cast across the land). This event must be triggered by a mouse-click and must affect at least 7 tiles of the world in proximity to the mouse position when the click occurs. The event should affect no more than half of the world.
+- The world event must be visualized by modifying the background image of the affected tiles (so edit Background objects instead of Entity objects for this step. You are free to modify them however you would like, and are encouraged to be creative.
 
-Obtain the code from this GitHub classroom assignment: **TODO**. You will use this same assignment for the next 3 projects, including this one.
+World Changing Event: Effect
+- At least one type of existing mobile entity (e.g., fairies or dudes) must be affected by the world event, based on proximity to the event location. More specifically, this type of entity should change in appearance and behavior (similar to how dudes transform from DudeNotFull to DudeFull).
+- For example, a rainbow might change nearby dudes into dragons that seek to burn down houses.
+- The affected/transformed entities should change appearance and should change behavior (and the behavior must be active..it cannot be that it was moving before and now does not move). You must have both for full credit.
 
-## Task Overview
+World Changing Event: New Entity
+- The world event must cause a new type of mobile entity to spawn. This new entity should animate and move according to logic defined by you. Make sure you have multiple image files so it animates.
+- For instance, the new entity might seek out fairies to turn them into crystals, chase down dudes to infect them with the plague, or travel the world spreading apple seeds.
 
-You must identify those classes with low cohesion and then split these classes into separate classes exhibiting high cohesion. Since each of these new classes will introduce a separate type, you may need to “root” them at a single type (as defined by an interface or an abstract class) to satisfy Java’s type checking rules. When you are done, many classes will end up with multiple parent types (e.g. implement multiple interfaces) or may have a parent type that has its own parent types in turn.
+Note: This new entity is in addition to the entity transformation triggered by the event as just discussed. For example, a Dude transforming into a completely different kind of entity does not count for this requirement. A new entity must spawn (i.e. there are now more things in the world, not just an existing thing replaced.)
 
-Based on the original source code, there are likely two categories of classes with low cohesion. The first category consists of those classes that depend on ActionKind or EntityKind. The second category depends on your final distribution of the methods in the original Functions class.
+Additional Requirements:
+- The images for your changed background, affected entity, and new entity must be created by you (or found by you…you can find a gif and convert it to png or bmp files). You may not use any of the existing images that came with the project (including the wyvern). An exception is for your “affected entity”, you may alter that entity’s current image.
+- For entities, you can download a gif from hereLinks to an external site. and then use this websiteLinks to an external site. to convert the gif into a series of images. Those images are what will be used to “animate” your entity. Be sure to re-size the images so they fit in the world! See the other images in the images folder to know what the size should be.
+- It goes without saying that all additions to the world should be professionally appropriate. Humour is okay. Crassness is not. If you’re not sure, ask me (or err on the side of caution).
 
-- "Kind": The original source code uses ActionKind and EntityKind to allow each Action instance and each Entity instance to play one of potentially many roles (polymorphism). You are to eliminate these Kind classes (enums) by splitting Action and Entity into multiple new classes.
+Description:
+- Include a text file named WORLD_EVENT.txt in your submission that describes:
+- how to trigger the event
+- what should happen when the event is triggered
+- what the affected entities should do
+- what the new entity is and how it should behave
+- (if applicable) the names of each partner and what each partner was responsible for
+- If you ran into any design decisions or tradeoffs, talk about those too!
 
-- Other: Review all of the classes with a focus on cohesion. Does a class contain data that is not used by all instances of the class (i.e., each “kind” uses only subsets of the data)? Does a class contain methods that do not support the primary role of instances of the class (e.g., static methods that are used to create instances or parse files, but that are not actually part of the functionality provided by the instances)?
+Design:
+- Be sure to adhere to the design principles discussed this quarter. Refactor your code as needed, and resist the urge for quick hacks that would increase maintenance costs.
+- You are encouraged to reflect on the quality of your design and the effort required to add the functionality for this assignment. How do you think this effort compares to that needed to add the same functionality to the originally given code? (Especially if you have, e.g., entities that move quite differently from the original set.)
 
-**You are strongly encouraged to:**
-- Develop both a design document and the code refactoring at the same time.
-- Implement the refactoring incrementally so that your refactored program executes properly at each step. That is, after each change, run the program using the main method in `VirtualWorld.java` and tests in `WorldTests.java` and make sure that it continues to behave as expected.
-- Commit your code and push to GitHub often. On this project more than before you are likely to want to look at previous versions of the codebase.
+Presentation:
+- On the presentation date, your group should give a short presentation. You should:
 
-## Introducing Parent Types
+Introduce yourselves:
+- Demo your project, highlighting the background tiles, transformed entities, and new entities
+- Explain who worked on what piece
+- Show your new classes and functions in VirtualWorld.java and explain your design choices
+- Ask for questions / be prepared to answer if there are any about your code choices or program running
+  
+Assignment Submission:
+- Copy your code back into your Github classroom repo when done - your submission must include all source files (even those that were unchanged). Your instructor should be able to build your project based on the files submitted. You must also submit all image files, the image list, and the world save file (since this assignment requires changes to some/all of these). Please verify on Github.com that your files were all added (especially the image files). An explicit list of files is not given because you are creating new files for this assignment, so verify that you have submitted everything properly.
+- If you are working with a partner, only one partner needs to submit to github (presumably the partner from whose code base you began this assignment).
 
-Consider this example. Above we’ve discussed the EntityKind enums, which are used to differentiate between different kinds of Entities. In this project, you’ll need to split those classes into multiple new classes, each of which represents a specific kind of Entity. However, to satisfy Java’s type-checking rules, we need to “root” those new classes at a single type.
-
-You have a number of strategies in your arsenal that will help you address this. Namely, you can introduce an interface or an abstract class. Consider carefully the pros and cons of either approach.
-
-### Strategy 1
-
-An interface can define a number of abstract methods which are then implemented by each of the implementing subclasses. This solves our problem of rooting our new subclasses at a single parent type.
-
-However, it will introduce a fair amount of code duplication. This is because each implementing subclass will need to implement all of the abstract methods that are listed in the interface, even if the implementations are identical for multiple subclasses. How to address this?
-
-### Strategy 2
-
-This can be addressed by using default methods in your interfaces. Default methods let you provide implementations for certain methods (which will be used by the implementing subclasses unless they have their own implementations). This solves the problem of duplicated method implementations, but does still cause difficulties because interfaces cannot have instance variables.
-
-### Strategy 3
-
-You can address this by instead using an abstract class. Abstract classes, as you recall, can have a mix of abstract and fully implemented methods (in a manner very similar to an interface having abstract and default methods). A key difference is that abstract classes can also have instance variables—this means you can avoid duplication of data, not just methods.
-
-**So why not just use abstract classes if they solve so many problems?** Remember that a class can extend no more than one abstract class. As you design your solution, you will find that this introduces a number of constraints, not all of which are desirable.
-
-Like many problems in software design, there is no “silver bullet” that solves all your problems. You will consider design trade-offs and make your own decisions about how to approach this project, likely using a mix of the above strategies.
-
-No matter what you do, your main guiding principles throughout will be:
-
-- Improve cohesion. Classes should only include functionality that relevant to all instances of the class. There should NOT be functionality in a class that only relevant to some instances of the class.
-- Remove code duplication. There should be little-to-no code duplication in the project once you’re done. Where classes have similar or identical code, abstract out that functionality into a parent type.
-- If you opt to use mostly interfaces and default methods, you will find that private instance variables and their public getters and setters must be duplicated across all implementing subclasses. This duplication is okay.
-
-## Design document
-
-There is no design document submission required. However, you are strongly encouraged to prepare a diagram describing your program design before you begin refactoring the source code. Show me this diagram during lab or office hours to receive some feedback about it before you dive too deeply into code editing.
-
-## Source code refactoring
-
-The following are some tips on approaching the introduction of interfaces or abstract classes to support splitting classes.
-
-**Note**: A class should not implement an interface (or extend an abstract parent class) only to then define a method required by the interface (or abstract class) to do nothing at all. A class should not implement an interface (or extend an abstract parent class) and then define a method required by the interface (or abstract class) to raise an exception indicating that the method is not supported.
-
-Your introduction of parent types for this project must be meaningful. It is insufficient to define a single interface / abstract class with all methods that are then only partially implemented by each of the classes.
-
-- First, copy the original class to each of the new classes (each defining a single role).
-- In each new class, eliminate each data attribute not used by this class and each method not supported by this class. (For this project, you can examine how instances playing this role are created as a hint about which data attributes are actually used.)
-- Change the original class into an interface declaring only those methods shared by every new class.
-- Group the new classes into sets with similar functionality. Introduce additional interfaces as appropriate (see below).
-- Examine the original uses of the objects (before this change) to determine which methods are used by client code. Can the client code still access that method based on the reference type? Will it be able to do so if you change the type to one of the interfaces that you have already introduced? Do any interfaces have to extend a more general interface for it to compile?
-
-At this point, if you only added interfaces, you will have lots of duplicate code. Next, consider if your interfaces could use default methods or if there is any common data / implementation you can pull up if your interface was instead an abstract parent (or if your interface was implemented by an abstract parent).
-
----
-
-Your refactoring must not add or remove any program functionality. The resulting program must work as before. The `WorldTests` must continue to pass.
-
-### Tips on Refactoring Methods
-
-You can use the compiler (on the command-line or in the IDE) to help you with your refactoring. In particular, as you introduce interfaces and abstract classes, the compiler will report attempts to use methods not supported by the specified type. The existence of such errors may indicate missing methods for an interface or, more likely, attempts to treat a group of objects more generally than should be supported (i.e., not all of them implement the desired operation).
-
-As part of your refactoring, you will be eliminating the *Kind* classes. This is desired to allow each new class to directly implement a single role, but has the unfortunate side-effect of eliminating a simple check of an object’s “kind”. This check is used, for instance, when searching for the nearest Tree to a Dude.
-
-Consider the following tips.
-
-- For a class that is being split into multiple class, change the original class into an interface declaring no methods. Compile the program to determine all uses of this interface (the method invocations will trigger compiler errors). Now determine which of these methods must be supported by all instances of an interface or abstract class and which should be supported via additional interfaces.
-
-- You can copy the original class to, and change all references to, NameTmp and declare it to implement the new interface (or extend the new abstract class) so that most of the code will continue to compile.
-
-- For those methods that are not logically part of the primary interface defined in the prior step, introduce new interfaces and change the necessary variable declarations to use the new types.
-
-- A check for the "kind" of a referenced object can, for now (though we will address this later), be replaced by a use of instanceof. Use this sparingly; certainly instanceof is not needed to check the type of this.
-
-- In the case that a *Kind value was passed as a parameter to another method (and then compared within), you can do the following.
-
-- Change the parameter type from the specific *Kind to Class (this is a type where each instance represents properties of a specific Java class).
-
-- Instead of passing a *Kind value, use .class to get the object associated with the desired Java class (e.g., String.class gives the Class object describing the String class).
-
-- Change the comparison to use the isInstance() method on the Class object, passing to this method the object to be checked.
-
-- For two methods that appear to be doing roughly the same thing, but that differ slightly in their implementation: examine the code to determine if the code can be rewritten to match. This does require careful consideration for what each method does (and does not) to avoid introducing bugs.
-
-- Some methods may have the same general structure (and match identically in significant portions), but differ in some segments. For such methods, the general structure and identical portions can be refactored into a parent class. This parent class will declare new protected abstract method(s) that each subclass then implements to define the unique behavior (as done in the calculator lab).
-
-## Assignment Submission
-
-Commit and push your code to your project GitHub repository.
+Concurrent Modification Exception:
+- Warning: Depending on the implementation of your world and your world-changing event, you may run into a concurrent modification exception. This stems (in the most likely case for this project) from modifying a list while iterating over the list. If you run into such an error, speak with your instructor to help resolve the issue. One means to correct the error might be to schedule a new action to happen at a delayed time (so that the modification of, for instance, the entities list is not done while iterating over the list).
+- Commit and push your code to your project GitHub repository.
 
 Your submission must include all source files (even those that were unchanged). Your grader should be able to build your project based on the files submitted. An explicit list of files is not given because you are creating new files for this assignment, so verify that you have submitted everything properly. Remove files from your repository that are no longer needed for your project (e.g. EntityKind.java).
