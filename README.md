@@ -1,7 +1,7 @@
 # Project 4 — Virtual World Simulation Project
 
-Virtual World Simulation Project
-This project integrates three major improvements: code cohesion, pathing strategies, and the addition of a world-changing event.
+Virtual World Simulation Project:
+- This project integrates three major improvements: code cohesion, pathing strategies, and the addition of a world-changing event.
 
 1. Refactoring for Cohesion:
 - Refactor a large object-oriented codebase to improve class cohesion by splitting low-cohesion classes into multiple, highly cohesive ones.
